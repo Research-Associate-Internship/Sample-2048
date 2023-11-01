@@ -1,4 +1,4 @@
-## Description
+## Description of pushing docker image to ECR
 
 Small *image* (~6.44MB) based on `alpine` (version 3.8), to run `2048` app cloned from [Gabriel repo](https://github.com/gabrielecirulli/2048), with `nginx`.
 
