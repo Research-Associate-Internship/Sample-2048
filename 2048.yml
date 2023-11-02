@@ -33,7 +33,7 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 32567
+      targetPort: 80
       protocol: TCP
   loadBalancerIP: 10.100.75.55
   type: LoadBalancer
