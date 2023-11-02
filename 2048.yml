@@ -122,8 +122,8 @@ spec:
       - name: nginix
         image: public.ecr.aws/nginx/nginx:stable-perl
         imagePullPolicy: Always
-    replicas: 1
-    selector:
+  replicas: 1
+  selector:
       matchLabels:
           tag: nginix
 ---
