@@ -134,7 +134,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector: 
-    tag: lb-nginix
+    tag: nginix-example
   ports:
   - name: port-nginix
     port: 8080
