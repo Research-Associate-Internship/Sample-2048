@@ -111,7 +111,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: nginx-deploy
 spec:
   template:
     metadata:
@@ -119,24 +119,24 @@ spec:
         tag: nginx-example
     spec:
       containers:
-      - name: nginix
+      - name: nginx-sample
         image: public.ecr.aws/nginx/nginx:stable-perl
         imagePullPolicy: Always
   replicas: 1
   selector:
       matchLabels:
-          tag: nginix-example
+          tag: nginx-example
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginix-lb
+  name: nginx-lb
 spec:
   type: LoadBalancer
   selector: 
-    tag: nginix-example
+    tag: nginx-example
   ports:
-  - name: port-nginix
+  - name: port-nginx
     port: 8080
     targetPort: 80
     protocol: TCP
