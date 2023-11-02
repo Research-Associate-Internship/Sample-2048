@@ -116,7 +116,7 @@ spec:
   template:
     metadata:
       labels:
-        tag: nginx
+        tag: nginx-example
     spec:
       containers:
       - name: nginix
@@ -125,7 +125,7 @@ spec:
   replicas: 1
   selector:
       matchLabels:
-          tag: nginix
+          tag: nginix-example
 ---
 apiVersion: v1
 kind: Service
