@@ -35,6 +35,7 @@ spec:
     - port: 80
       targetPort: 32567
       protocol: TCP
+  loadBalancerIP: 10.100.75.55
   type: LoadBalancer
   selector:
     app.kubernetes.io/name: app-2048
