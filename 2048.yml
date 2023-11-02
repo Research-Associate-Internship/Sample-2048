@@ -31,14 +31,14 @@ metadata:
   namespace: game-2048
   name: service-2048
 spec:
-  ports:
-    - port: 80
-      targetPort: 80
-      protocol: TCP
-  loadBalancerIP: 15.0.101.50
   type: LoadBalancer
   selector:
     app.kubernetes.io/name: app-2048
+  ports:
+    - name: 2048-game
+      port: 8080
+      targetPort: 80
+      protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
