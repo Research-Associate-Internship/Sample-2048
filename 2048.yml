@@ -1,73 +1,108 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: game-2048
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  namespace: game-2048
-  name: deployment-2048
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: app-2048
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: app-2048
-    spec:
-      containers:
-      - image: 853931821519.dkr.ecr.us-east-1.amazonaws.com/devsecops-rac3-registry:2048
-        imagePullPolicy: Always
-        name: app-2048
-        ports:
-        - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: game-2048
-  name: service-2048
-spec:
-  ports:
-    - port: 80
-      targetPort: 80
-      protocol: TCP
-  loadBalancerIP: 15.0.101.50
-  type: LoadBalancer
-  selector:
-    app.kubernetes.io/name: app-2048
----
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: game-2048
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   namespace: game-2048
+#   name: deployment-2048
+# spec:
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: app-2048
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app.kubernetes.io/name: app-2048
+#     spec:
+#       containers:
+#       - image: 853931821519.dkr.ecr.us-east-1.amazonaws.com/devsecops-rac3-registry:2048
+#         imagePullPolicy: Always
+#         name: app-2048
+#         ports:
+#         - containerPort: 80
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   namespace: game-2048
+#   name: service-2048
+# spec:
+#   ports:
+#     - port: 80
+#       targetPort: 80
+#       protocol: TCP
+#   loadBalancerIP: 15.0.101.50
+#   type: LoadBalancer
+#   selector:
+#     app.kubernetes.io/name: app-2048
+# ---
+# # apiVersion: networking.k8s.io/v1
+# # kind: Ingress
+# # metadata:
+# #   namespace: game-2048
+# #   name: ingress-2048
+# #   annotations:
+# #     ingress.kubernetes.io/ssl-redirect: "true"
+# # spec:
+# #   ingressClassName: alb
+# #   rules:
+# #     - http:
+# #         paths:
+# #         - path: /
+# #           pathType: Prefix
+# #           backend:
+# #             service:
+# #               name: service-2048
+# #               port:
+# #                 number: 80
+# # ---
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
 # metadata:
 #   namespace: game-2048
 #   name: ingress-2048
-#   annotations:
-#     ingress.kubernetes.io/ssl-redirect: "true"
 # spec:
-#   ingressClassName: alb
-#   rules:
-#     - http:
-#         paths:
-#         - path: /
-#           pathType: Prefix
-#           backend:
-#             service:
-#               name: service-2048
-#               port:
-#                 number: 80
-# ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+#   defaultBackend:
+#     service:
+#       name: service-2048
+#       port:
+#         number: 80
+#--------------
+apiVersion: v1
+kind: Service
 metadata:
-  namespace: game-2048
-  name: ingress-2048
+  name: service-2048
+  labels:
+    app: game-2048
 spec:
-  defaultBackend:
-    service:
-      name: service-2048
-      port:
-        number: 80
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: game-2048
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-game
+  labels:
+    app: game-2048
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: game-2048
+  template:
+    metadata:
+      labels:
+        app: game-2048
+    spec:
+      containers:
+      - name: my-game
+        image: 853931821519.dkr.ecr.us-east-1.amazonaws.com/devsecops-rac3-registry:2048
+        ports:
+        - containerPort: 80
