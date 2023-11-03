@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: "k8s-hello-node"
-          image: "853931821519.dkr.ecr.us-east-1.amazonaws.com/devsecops-registry"
+          image: "853931821519.dkr.ecr.us-east-1.amazonaws.com/devsecops-rac3-registry:2048"
           resources:
             requests:
               memory: "64Mi"
