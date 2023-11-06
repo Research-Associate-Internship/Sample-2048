@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/name: app-2048
     spec:
       containers:
-      - image: 853931821519.dkr.ecr.us-east-1.amazonaws.com/ad-rac3:2048
+      - image: 853931821519.dkr.ecr.us-east-1.amazonaws.com/devsecops-rac3-registry:2048
         imagePullPolicy: Always
         name: app-2048
         ports:
